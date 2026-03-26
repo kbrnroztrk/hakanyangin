@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakan Yangın Sistemleri | 1981'den Beri Güvenle Söndürüyoruz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================= 1. GENEL VE SİTE AYARLARI ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f4f4f4; color: #333; overflow-x: hidden; }
+
+        /* ================= 2. TAM EKRAN İNTRO EKRANI VE EFEKTLER ================= */
+        #intro-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000000; z-index: 9999; overflow: hidden;
+            cursor: default;
+            transition: opacity 1.5s ease-out, background-color 2s ease-in-out;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+
+            /* Ekrana tıklarken/sürüklerken mavi metin seçimini engeller */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .intro-text {
+            position: absolute; bottom: 30vh;
+            text-align: center; color: white; z-index: 100; pointer-events: none;
+            will-change: opacity;
+            transition: opacity 0.1s linear;
+        }
+        .intro-text h1 { font-size: 3.5rem; letter-spacing: 4px; margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,1); }
+        .intro-text p { font-size: 1.2rem; color: #fff; font-weight: 600; opacity: 0.9; letter-spacing: 1px; text-shadow: 0 3px 8px rgba(0,0,0,1); background: rgba(211, 47, 47, 0.8); padding: 10px 20px; border-radius: 5px; display: inline-block;}
+
+        #real-fire {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            object-fit: cover; object-position: bottom; pointer-events: none;
+            mix-blend-mode: screen; transition: opacity 0.1s linear; z-index: 10;
+        }
+
+        #particle-canvas {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 40;
+        }
+
+        #real-extinguisher {
+            position: absolute; width: 130px; height: auto;
+            pointer-events: none; z-index: 50; transform-origin: center center;
+            will-change: transform, left, top; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.9));
+            transition: transform 0.1s ease-out;
+        }
+
+        /* ================= 3. ANA SİTE TASARIMI ================= */
+        #main-site { display: none; opacity: 0; transition: opacity 1.5s ease-in; }
+
+        .ust-bilgi { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 5%; box-shadow: 0 2px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .logo-konteyner { display: flex; align-items: center; gap: 15px; }
+        .logo-gorsel { max-height: 100px; width: auto; }
+        .logo-ana-baslik { font-size: 26px; font-weight: 700; color: #1a1a1a; display: block; }
+        .logo-alt-baslik { font-size: 14px; font-weight: 600; color: #d32f2f; text-transform: uppercase; }
+        .menu { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .menu a { text-decoration: none; color: #333; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .menu a:hover { color: #d32f2f; }
+        .ust-ara-butonu { background: #1a1a1a; color: white !important; padding: 12px 25px; border-radius: 8px; font-weight: 700; transition: 0.3s; }
+        .ust-ara-butonu:hover { background: #d32f2f; transform: translateY(-2px); }
+
+        .karsilama {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('ALEV2.gif');
+            background-size: cover; background-position: center; color: white;
+            text-align: center; padding: 140px 20px;
+        }
+        .karsilama h1 { font-size: 3.2rem; margin-bottom: 20px; }
+        .karsilama p { font-size: 1.2rem; color: #ccc; max-width: 800px; margin: 0 auto; }
+
+        .hizli-erisim { background: #f4f4f4; padding: 0 5%; margin-top: -60px; position: relative; z-index: 10; }
+        .erisim-kapsayici { display: flex; justify-content: center; gap: 25px; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+        .erisim-kart { background: #fff; padding: 35px; border-radius: 15px; display: flex; align-items: center; gap: 20px; text-decoration: none; color: #333; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border-bottom: 8px solid #1a1a1a; transition: 0.3s ease; flex: 1; min-width: 320px; }
+        .erisim-kart:hover { transform: translateY(-10px); border-bottom: 8px solid #d32f2f; }
+        .ikon { font-size: 3rem; }
+        .metin strong { display: block; font-size: 1.3rem; color: #1a1a1a; margin-bottom: 5px; }
+        .metin span { font-size: 1.1rem; color: #666; }
+
+        .hakkimizda-alani, .hizmetler-alani { padding: 120px 5%; text-align: center; background-color: #fff; }
+        .hakkimizda-icerik { max-width: 900px; margin: 0 auto; }
+        .tecrube-yili { background: #d32f2f; color: white; display: inline-block; padding: 8px 20px; border-radius: 50px; font-weight: 700; margin-bottom: 20px; }
+        .baslik-cizgi { width: 80px; height: 6px; background: #d32f2f; margin: 20px auto 60px; }
+        .hakkimizda-icerik h2, .hizmetler-ust-baslik h2 { font-size: 2.8rem; color: #1a1a1a; font-weight: 700; }
+        .hakkimizda-icerik p { font-size: 1.2rem; color: #555; line-height: 1.8; margin-bottom: 20px; }
+
+        .hizmetler-alani { background-color: #fafafa; }
+        .kart-kapsayici { display: flex; justify-content: center; align-items: stretch; gap: 35px; max-width: 1300px; margin: 0 auto; flex-wrap: wrap; }
+        .hizmet-karti { background: #fff; padding: 60px 40px; border-radius: 25px; flex: 1; min-width: 320px; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border-top: 8px solid #1a1a1a; transition: 0.4s ease; }
+        .hizmet-karti:hover { transform: translateY(-15px); border-top: 8px solid #d32f2f; }
+        .kart-ikon { font-size: 4rem; margin-bottom: 30px; }
+        .hizmet-karti h3 { font-size: 1.8rem; margin-bottom: 20px; color: #1a1a1a; }
+        .hizmet-karti p { font-size: 1.1rem; color: #555; line-height: 1.8; }
+
+        footer { background: #111; color: #fff; padding: 80px 5% 40px; margin-top: 80px; }
+        .footer-icerik { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; }
+        .footer-kolon h3 { color: #d32f2f; margin-bottom: 30px; font-size: 1.6rem; }
+        .footer-kolon p { margin-bottom: 15px; color: #ccc; font-size: 1.1rem; }
+        .telif { text-align: center; margin-top: 60px; border-top: 1px solid #222; padding-top: 30px; font-size: 0.9rem; color: #555; }
+
+        @media (max-width: 992px) {
+            .ust-bilgi { flex-direction: column; gap: 20px; padding: 20px; }
+            .menu { flex-wrap: wrap; justify-content: center; }
+            .intro-text h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- İNTRO EKRANI (Canvas Fizik Motorlu) -->
+<div id="intro-overlay">
+    <div class="intro-text" id="intro-text">
+        <h1>HAKAN YANGIN SİSTEMLERİ</h1>
+        <p>Söndürmek için ekrana basılı tutarak alevlere müdahale edin</p>
+    </div>
+    <img src="ALEV2.gif" alt="Alev" id="real-fire">
+    <canvas id="particle-canvas"></canvas>
+    <img src="tup.png" alt="Yangın Tüpü" id="real-extinguisher" onerror="this.style.display='none';">
+</div>
+
+<!-- ANA SİTE (Eksiksiz İçerik) -->
+<div id="main-site">
+    <header class="ust-bilgi">
+        <div class="logo-konteyner">
+            <img src="logo1.png" alt="Hakan Yangın Sistemleri Logosu" class="logo-gorsel">
+            <div class="logo-yazi-alani">
+                <span class="logo-ana-baslik">Hakan</span>
+                <span class="logo-alt-baslik">Yangın Sistemleri</span>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="#">Ana Sayfa</a></li>
+                <li><a href="#hakkimizda">Hakkımızda</a></li>
+                <li><a href="#hizmetler">Hizmetler</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="karsilama">
+        <div class="karsilama-icerik">
+            <h1>Tedbiriniz Bizim Önceliğimiz...</h1>
+            <p>Ankara'da yarım asra yaklaşan tecrübemizle yangın söndürme sistemlerinde lider kuruluş.</p>
+        </div>
+    </section>
+
+    <section class="hizli-erisim">
+        <div class="erisim-kapsayici">
+            <a href="tel:+905373433232" class="erisim-kart">
+                <span class="ikon">📞</span>
+                <div class="metin">
+                    <strong>Hemen Ara</strong>
+                    <span>0537 343 32 32</span>
+                </div>
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Anafartalar+Mah.+Mermerci+Han+Ulus+Ankara" target="_blank" class="erisim-kart">
+                <span class="ikon">📍</span>
+                <div class="metin">
+                    <strong>Navigasyon</strong>
+                    <span>Yol Tarifi Al</span>
+                </div>
+            </a>
+            <a href="https://www.instagram.com/yangin.market/" target="_blank" class="erisim-kart">
+                <span class="ikon">📸</span>
+                <div class="metin">
+                    <strong>Instagram</strong>
+                    <span>@yangin.market</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="hakkimizda" class="hakkimizda-alani">
+        <div class="hakkimizda-icerik">
+            <div class="tecrube-yili">45+ Yıllık Tecrübe</div>
+            <h2>Hakkımızda</h2>
+            <div class="baslik-cizgi"></div>
+            <p><strong>1981 yılında kurulan</strong> Hakan Yangın Sistemleri, Ankara’nın kalbinde temellerini atmış ve o günden bugüne "can ve mal güvenliği" ilkesinden ödün vermeden yoluna devam etmiştir.</p>
+            <p>Sektördeki 40 yılı aşkın birikimimizle, yangın söndürme tüplerinin dolumundan otomatik sistemlerin kurulumuna kadar geniş bir yelpazede profesyonel çözümler sunuyoruz. Mermerci Han’daki merkezimizde, tecrübemizi modern teknolojiyle birleştirerek siz değerli müşterilerimizin güvenliğini sağlamak için çalışıyoruz.</p>
+        </div>
+    </section>
+
+    <section id="hizmetler" class="hizmetler-alani">
+        <div class="hizmetler-ust-baslik">
+            <h2>Neler Yapıyoruz?</h2>
+            <div class="baslik-cizgi"></div>
+        </div>
+        <div class="kart-kapsayici">
+            <div class="hizmet-karti">
+                <div class="kart-ikon">🧯</div>
+                <h3>Tüp Dolumu</h3>
+                <p>TSE standartlarında, garantili yangın tüpü dolum ve periyodik bakım hizmetleri.</p>
+            </div>
+            <div class="hizmet-karti">
+                <div class="kart-ikon">🚨</div>
+                <h3>Alarm Sistemleri</h3>
+                <p>Duman algılama ve erken uyarı sistemleri kurulum ve teknik servis.</p>
+            </div>
+            <div class="hizmet-karti">
+                <div class="kart-ikon">🚿</div>
+                <h3>Söndürme Sistemleri</h3>
+                <p>Otomatik sulu,gazlı ve davlumbaz söndürme sistemleri ve mikro söndürme sistemleri anahtar teslim montaj.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="iletisim">
+        <div class="footer-icerik">
+            <div class="footer-kolon">
+                <h3>Hakan Yangın Sistemleri</h3>
+                <p>📍 Anafartalar Mah. Şehit Teğmen Kalmaz Posta Cad. No: 19 Mermerci Han Ulus, Altındağ / Ankara</p>
+                <p>📧 <strong>yangin.market@gmail.com</strong></p>
+            </div>
+            <div class="footer-kolon">
+                <h3>Hızlı İletişim</h3>
+                <p>📞 0537 343 32 32</p>
+                <p>📞 0312 324 29 29</p>
+                <p>📞 0312 311 02 12</p>
+                <p>Fax: 0312 310 98 85</p>
+                <p>📸 instagram.com/yangin.market</p>
+            </div>
+        </div>
+        <div class="telif">
+            <p>© 2026 Hakan Yangın Sistemleri. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+</div>
+
+<!-- JAVASCRIPT: GELİŞMİŞ FİZİK MOTORU VE EFEKTLER -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const intro = document.getElementById('intro-overlay');
+        const mainSite = document.getElementById('main-site');
+        const extinguisher = document.getElementById('real-extinguisher');
+        const fire = document.getElementById('real-fire');
+        const introText = document.getElementById('intro-text');
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let isSpraying = false;
+        let fireOpacity = 1.0;
+        let isIntroFinished = false;
+        let particles = [];
+        let target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startSpray(e) {
+            if(isIntroFinished) return;
+            isSpraying = true;
+            updateTarget(e);
+        }
+        function stopSpray() { isSpraying = false; }
+        function updateTarget(e) {
+            if(e.touches) {
+                target.x = e.touches[0].clientX;
+                target.y = e.touches[0].clientY;
+            } else {
+                target.x = e.clientX;
+                target.y = e.clientY;
+            }
+        }
+
+        window.addEventListener('mousedown', startSpray);
+        window.addEventListener('mouseup', stopSpray);
+        window.addEventListener('mousemove', updateTarget);
+        window.addEventListener('touchstart', startSpray, {passive: true});
+        window.addEventListener('touchend', stopSpray);
+        window.addEventListener('touchmove', updateTarget, {passive: true});
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                let angle = (Math.random() - 0.5) * 0.8 + (Math.PI / 2);
+                let speed = Math.random() * 20 + 15;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.size = Math.random() * 10 + 5;
+                this.growth = Math.random() * 2 + 1;
+                this.life = 1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                this.vx *= 0.88;
+                this.vy *= 0.88;
+                this.vy += 0.8;
+                this.size += this.growth;
+                this.life -= 0.025;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(240, 240, 240, ${this.life * 0.8})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function animate() {
+            if (isIntroFinished) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            current.x += (target.x - current.x) * 0.15;
+            current.y += (target.y - current.y) * 0.15;
+
+            extinguisher.style.left = (current.x - 30) + 'px';
+            extinguisher.style.top = (current.y - 10) + 'px';
+
+            if (isSpraying) {
+                extinguisher.style.transform = 'rotate(-15deg)';
+                for(let i=0; i<6; i++) {
+                    particles.push(new Particle(current.x - 20, current.y + 10));
+                }
+
+                fireOpacity -= 0.0085;
+                if(fireOpacity < 0) fireOpacity = 0;
+                fire.style.opacity = fireOpacity;
+
+                let blueIntensity = 1 - fireOpacity;
+                intro.style.backgroundColor = `rgba(10, 25, 47, ${blueIntensity * 0.8})`;
+
+                introText.style.opacity = fireOpacity;
+
+            } else {
+                extinguisher.style.transform = 'rotate(0deg)';
+                intro.style.backgroundColor = 'black';
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.update(); p.draw();
+                if (p.life <= 0) { particles.splice(i, 1); i--; }
+            }
+
+            if (fireOpacity <= 0) {
+                finishIntro();
+            } else {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        function finishIntro() {
+            isIntroFinished = true;
+            isSpraying = false;
+
+            extinguisher.style.opacity = '0';
+            canvas.style.opacity = '0';
+            introText.style.opacity = '0';
+
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    mainSite.style.display = 'block';
+                    window.scrollTo(0, 0);
+                    document.body.style.cursor = 'auto';
+                    setTimeout(() => mainSite.style.opacity = '1', 100);
+                }, 1000);
+            }, 300);
+        }
+
+        animate();
+    });
+</script>
+</body>
+</html>
