@@ -10,70 +10,31 @@
         /* ================= 1. GENEL VE SİTE AYARLARI ================= */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
 
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 90px; /* Menü aşağı indiğinizde başlıkların üstünü kapatmasın diye eklendi */
-        }
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
-        body {
-            width: 100%;
-            background-color: #f4f4f4;
-            color: #333;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-        }
+        body { width: 100%; background-color: #f4f4f4; color: #333; overflow-x: hidden; overscroll-behavior-y: none; }
 
-        body.intro-active {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100vh;
-        }
+        body.intro-active { overflow: hidden; position: fixed; width: 100%; height: 100vh; }
 
         /* ================= 2. TAM EKRAN İNTRO EKRANI ================= */
         #intro-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            height: 100dvh;
-            background: #000000; z-index: 9999; overflow: hidden;
-            cursor: default;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
+            background: #000000; z-index: 9999; overflow: hidden; cursor: default;
             transition: opacity 1.5s ease-out, background-color 2s ease-in-out;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            touch-action: none;
-            -webkit-touch-callout: none;
+            user-select: none; touch-action: none;
         }
 
         .intro-text {
-            position: absolute; bottom: 30vh;
-            text-align: center; color: white; z-index: 100; pointer-events: none;
-            will-change: opacity;
+            position: absolute; bottom: 30vh; text-align: center; color: white; z-index: 100; pointer-events: none;
             transition: opacity 0.1s linear;
         }
         .intro-text h1 { font-size: 2.5rem; letter-spacing: 3px; margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,1); }
-        .intro-text p { font-size: 1rem; color: #fff; font-weight: 600; opacity: 0.9; letter-spacing: 1px; text-shadow: 0 3px 8px rgba(0,0,0,1); background: rgba(211, 47, 47, 0.8); padding: 8px 16px; border-radius: 5px; display: inline-block;}
+        .intro-text p { font-size: 1rem; color: #fff; font-weight: 600; opacity: 0.9; background: rgba(211, 47, 47, 0.8); padding: 8px 16px; border-radius: 5px; display: inline-block;}
 
-        #real-fire {
-            position: absolute; top: 0; left: 0; width: 100vw; height: 100%;
-            object-fit: cover; object-position: bottom; pointer-events: none;
-            mix-blend-mode: screen; transition: opacity 0.1s linear; z-index: 10;
-        }
-
-        #particle-canvas {
-            position: absolute; top: 0; left: 0; width: 100vw; height: 100%;
-            pointer-events: none; z-index: 40;
-        }
-
-        #real-extinguisher {
-            position: absolute; width: 110px; height: auto;
-            pointer-events: none; z-index: 50; transform-origin: center center;
-            will-change: transform, left, top; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.9));
-            transition: transform 0.1s ease-out;
-            transform: translateZ(0);
-        }
+        #real-fire { position: absolute; top: 0; left: 0; width: 100vw; height: 100%; object-fit: cover; object-position: bottom; pointer-events: none; mix-blend-mode: screen; transition: opacity 0.1s linear; z-index: 10; }
+        #particle-canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100%; pointer-events: none; z-index: 40; }
+        #real-extinguisher { position: absolute; width: 110px; height: auto; pointer-events: none; z-index: 50; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.9)); transition: transform 0.1s ease-out; }
 
         /* ================= 3. ANA SİTE TASARIMI ================= */
         #main-site { display: none; opacity: 0; transition: opacity 1.5s ease-in; min-height: 100vh; }
@@ -87,9 +48,6 @@
         .menu { display: flex; list-style: none; gap: 20px; align-items: center; }
         .menu a { text-decoration: none; color: #333; font-weight: 500; font-size: 14px; transition: 0.3s; }
         .menu a:hover { color: #d32f2f; }
-
-        .ust-ara-butonu { background: #1a1a1a; color: white !important; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; transition: 0.3s; }
-        .ust-ara-butonu:hover { background: #d32f2f; transform: translateY(-2px); }
 
         .karsilama {
             background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('ALEV2.gif');
@@ -105,54 +63,41 @@
         .erisim-kart:hover { transform: translateY(-5px); border-bottom-color: #d32f2f; }
         .ikon { font-size: 2rem; }
         .metin strong { display: block; font-size: 1.1rem; color: #1a1a1a; margin-bottom: 3px; }
-        .metin span { font-size: 0.95rem; color: #666; }
 
         /* ORTAK ALAN YAPISI */
         .hakkimizda-alani, .hizmetler-alani, .urunler-alani { padding: 80px 5%; text-align: center; background-color: #fff; }
-        .hakkimizda-icerik { max-width: 800px; margin: 0 auto; }
         .tecrube-yili { background: #d32f2f; color: white; display: inline-block; padding: 6px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 15px; }
         .baslik-cizgi { width: 60px; height: 4px; background: #d32f2f; margin: 15px auto 40px; }
-        .hakkimizda-icerik h2, .hizmetler-ust-baslik h2, .urunler-ust-baslik h2 { font-size: 2.2rem; color: #1a1a1a; font-weight: 700; }
+        .hakkimizda-icerik { max-width: 800px; margin: 0 auto; }
         .hakkimizda-icerik p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 15px; }
 
         /* HİZMETLER */
         .hizmetler-alani { background-color: #fafafa; }
         .kart-kapsayici { display: flex; justify-content: center; align-items: stretch; gap: 20px; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
-
         .hizmet-karti { background: #fff; padding: 30px 20px; border-radius: 12px; flex: 1; min-width: 250px; max-width: 320px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-top: 5px solid #1a1a1a; transition: 0.3s ease; }
         .hizmet-karti:hover { transform: translateY(-5px); border-top-color: #d32f2f; }
         .kart-ikon { font-size: 2.5rem; margin-bottom: 15px; }
-        .hizmet-karti h3 { font-size: 1.2rem; margin-bottom: 10px; color: #1a1a1a; }
-        .hizmet-karti p { font-size: 0.95rem; color: #555; line-height: 1.5; }
 
-        /* ÜRÜNLER */
-        .urunler-alani { background-color: #fff; }
+        /* ÜRÜNLER FİLTRELEME */
+        .kategori-filtreleme { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .filtre-butonu { padding: 10px 20px; border: 2px solid #ddd; background: #fff; cursor: pointer; border-radius: 25px; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; color: #555; }
+        .filtre-butonu:hover, .filtre-butonu.aktif { background: #d32f2f; color: white; border-color: #d32f2f; }
+
         .urun-kart-kapsayici { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
-
-        .urun-karti { background: #fafafa; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.2s ease; display: flex; flex-direction: column; align-items: center; border: 1px solid #eaeaea;}
-        .urun-karti:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: #d32f2f;}
-
-        .urun-gorsel-alani { width: 100%; height: 180px; background-color: #111; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative;}
+        .urun-karti { background: #fafafa; padding: 20px; border-radius: 12px; border: 1px solid #eaeaea; transition: 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+        .urun-karti.gizli { display: none; }
+        .urun-gorsel-alani { width: 100%; height: 180px; background-color: #111; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .urun-gorsel-alani img { width: 100%; height: 100%; object-fit: contain; padding: 10px; }
-        .gorsel-yertutucu { color: #555; font-weight: 500; font-size: 0.9rem; position: absolute; }
-
-        .urun-karti h3 { font-size: 1.1rem; margin-bottom: 8px; color: #1a1a1a; text-align: center; width: 100%; line-height: 1.3;}
-        .urun-karti p { font-size: 0.9rem; color: #666; line-height: 1.4; text-align: center; margin-bottom: 10px; flex-grow: 1;}
 
         footer { background: #111; color: #fff; padding: 60px 5% 30px; margin-top: 60px; }
         .footer-icerik { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 0 auto;}
         .footer-kolon h3 { color: #d32f2f; margin-bottom: 20px; font-size: 1.3rem; }
-        .footer-kolon p { margin-bottom: 10px; color: #bbb; font-size: 0.95rem; }
         .telif { text-align: center; margin-top: 40px; border-top: 1px solid #222; padding-top: 20px; font-size: 0.85rem; color: #555; }
 
         @media (max-width: 992px) {
             .ust-bilgi { flex-direction: column; gap: 15px; padding: 15px; }
             .menu { flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .intro-text h1 { font-size: 2rem; }
-            .karsilama h1 { font-size: 2rem; }
             .urun-kart-kapsayici { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-            .urun-gorsel-alani { height: 140px; }
-            .urun-karti h3 { font-size: 1rem; }
         }
     </style>
 </head>
@@ -199,24 +144,15 @@
         <div class="erisim-kapsayici">
             <a href="tel:+905373433232" class="erisim-kart">
                 <span class="ikon">📞</span>
-                <div class="metin">
-                    <strong>Hemen Ara</strong>
-                    <span>0537 343 32 32</span>
-                </div>
+                <div class="metin"><strong>Hemen Ara</strong><span>0537 343 32 32</span></div>
             </a>
             <a href="https://www.google.com/maps/search/?api=1&query=Anafartalar+Mah.+Mermerci+Han+Ulus+Ankara" target="_blank" class="erisim-kart">
                 <span class="ikon">📍</span>
-                <div class="metin">
-                    <strong>Navigasyon</strong>
-                    <span>Yol Tarifi Al</span>
-                </div>
+                <div class="metin"><strong>Navigasyon</strong><span>Yol Tarifi Al</span></div>
             </a>
             <a href="https://www.instagram.com/yangin.market/" target="_blank" class="erisim-kart">
                 <span class="ikon">📸</span>
-                <div class="metin">
-                    <strong>Instagram</strong>
-                    <span>@yangin.market</span>
-                </div>
+                <div class="metin"><strong>Instagram</strong><span>@yangin.market</span></div>
             </a>
         </div>
     </section>
@@ -227,7 +163,7 @@
             <h2>Hakkımızda</h2>
             <div class="baslik-cizgi"></div>
             <p><strong>1981 yılında kurulan</strong> Hakan Yangın Sistemleri, Ankara’nın kalbinde temellerini atmış ve o günden bugüne "can ve mal güvenliği" ilkesinden ödün vermeden yoluna devam etmiştir.</p>
-            <p>Sektördeki 40 yılı aşkın birikimimizle, yangın söndürme tüplerinin dolumundan otomatik sistemlerin kurulumuna kadar geniş bir yelpazede profesyonel çözümler sunuyoruz. Mermerci Han’daki merkezimizde, tecrübemizi modern teknolojiyle birleştirerek siz değerli müşterilerimizin güvenliğini sağlamak için çalışıyoruz.</p>
+            <p>Sektördeki 40 yılı aşkın birikimimizle, yangın söndürme tüplerinin dolumundan otomatik sistemlerin kurulumuna kadar geniş bir yelpazede profesyonel çözümler sunuyoruz.</p>
         </div>
     </section>
 
@@ -250,7 +186,7 @@
             <div class="hizmet-karti">
                 <div class="kart-ikon">🔥💧</div>
                 <h3>Söndürme Sistemleri</h3>
-                <p>Otomatik sulu,gazlı ve davlumbaz söndürme sistemleri ve mikro söndürme sistemleri anahtar teslim montaj.</p>
+                <p>Otomatik sulu, gazlı ve davlumbaz söndürme sistemleri anahtar teslim montaj.</p>
             </div>
         </div>
     </section>
@@ -261,192 +197,158 @@
             <div class="baslik-cizgi"></div>
         </div>
 
+        <div class="kategori-filtreleme">
+            <!-- Söndürücüler butonu varsayılan olarak aktif -->
+            <button class="filtre-butonu aktif" onclick="filtrele('sondurucu')">Söndürücüler</button>
+            <button class="filtre-butonu" onclick="filtrele('ikaz')">İkaz Cihazları</button>
+            <button class="filtre-butonu" onclick="filtrele('hortum')">Hortum & Battaniye</button>
+            <button class="filtre-butonu" onclick="filtrele('levha')">İşaret Levhaları</button>
+            <button class="filtre-butonu" onclick="filtrele('aparat')">Vana & Hortum Aparatları</button>
+            <button class="filtre-butonu" onclick="filtrele('dolap')">Yangın Dolapları</button>
+        </div>
+
         <div class="urun-kart-kapsayici">
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/26.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+            <!-- Söndürücüler (Varsayılan olarak görünür, gizli class'ı YOK) -->
+            <div class="urun-karti" data-kategori="sondurucu">
+                <div class="urun-gorsel-alani"><img src="images/26.png" onerror="this.style.display='none'"></div>
                 <h3>ABC-KKT-YSC Yangın Tüpü</h3>
-                <p>A,B ve C sınıfı yangınlarda etkili olan çok amaçlı söndürücü(6kg,12 kg).</p>
+                <p>A,B ve C sınıfı yangınlarda etkili (6kg,12 kg).</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/16.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>FM200 227 EA Gazlı YSC Yangın Tüpü</h3>
-                <p>Paslanmaz gazlı yangın söndürme cihazı, A ve B sınıfı yangınlarda oldukça etkilidir.</p>
+            <div class="urun-karti" data-kategori="sondurucu">
+                <div class="urun-gorsel-alani"><img src="images/16.png" onerror="this.style.display='none'"></div>
+                <h3>FM200 Gazlı YSC</h3>
+                <p>A,B,C ve elektrik sınıfında etkili (6kg).</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/15.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Söndürme Topu </h3>
+            <div class="urun-karti" data-kategori="sondurucu">
+                <div class="urun-gorsel-alani"><img src="images/34.png" onerror="this.style.display='none'"></div>
+                <h3>Lityum İyon YSC</h3>
+                <p>Bioversal YSC A,B,C ve F yangın sınıfında kullanılır (6kg).</p>
+            </div>
+            <div class="urun-karti" data-kategori="sondurucu">
+                <div class="urun-gorsel-alani"><img src="images/33.png" onerror="this.style.display='none'"></div>
+                <h3>ABC Kurukimyevi Tozlu YSC</h3>
+                <p>A,B ve C sınıfında ve 1000 volt elektriğe karşı etkili (1kg,2kg).</p>
+            </div>
+            <div class="urun-karti" data-kategori="sondurucu">
+                <div class="urun-gorsel-alani"><img src="images/35.png" onerror="this.style.display='none'"></div>
+                <h3>B ve E sınıfı YSC</h3>
+                <p>CO2 Gazlı YSC B ve E yangın sınıfında kullanılır.</p>
+            </div>
+            <div class="urun-karti" data-kategori="sondurucu">
+                <div class="urun-gorsel-alani"><img src="images/15.png" onerror="this.style.display='none'"></div>
+                <h3>Yangın Söndürme Topu</h3>
                 <p>Otomatik yangın söndürme topu.</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/1.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+
+            <!-- İkaz Cihazları (GİZLİ) -->
+            <div class="urun-karti gizli" data-kategori="ikaz">
+                <div class="urun-gorsel-alani"><img src="images/1.png" onerror="this.style.display='none'"></div>
                 <h3>Yangın İhbar Butonu</h3>
-                <p>Kırmızı manuel yangın alarm butonu-sıva üstü.</p>
+                <p>Kırmızı manuel yangın alarm butonu.</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/3.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+            <div class="urun-karti gizli" data-kategori="ikaz">
+                <div class="urun-gorsel-alani"><img src="images/3.png" onerror="this.style.display='none'"></div>
                 <h3>Elektronik Yangın Sireni</h3>
-                <p>Konvansiyonel elektronik yangın sireni (Kırmızı).</p>
+                <p>Konvansiyonel elektronik yangın sireni.</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/5.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+            <div class="urun-karti gizli" data-kategori="ikaz">
+                <div class="urun-gorsel-alani"><img src="images/5.png" onerror="this.style.display='none'"></div>
                 <h3>Gaz Alarm Cihazı</h3>
-                <p>Ev tipi gaz alarm cihazı(Doğal gaz ve lpg uyumlu).</p>
+                <p>Doğal gaz ve lpg uyumlu.</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/8.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+            <div class="urun-karti gizli" data-kategori="ikaz">
+                <div class="urun-gorsel-alani"><img src="images/8.png" onerror="this.style.display='none'"></div>
                 <h3>Optik Duman Dedektörü</h3>
                 <p>Konvansiyonel optik duman dedektörü.</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/2.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+
+            <!-- Hortumlar (GİZLİ) -->
+            <div class="urun-karti gizli" data-kategori="hortum">
+                <div class="urun-gorsel-alani"><img src="images/2.png" onerror="this.style.display='none'"></div>
                 <h3>Yangın Hortumu</h3>
                 <p>TS 9222 standartlı bez yangın hortumu.</p>
             </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/6.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Acil Çıkış Aydınlatma Armatürü</h3>
-                <p>Led'li acil çıkış yönlendirme levhası(Işıklı exit armütürü).</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/14.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Fotolümen Acil Çıkış Levhası</h3>
-                <p>Elektriksiz parlayan acil çıkış levhası.</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/11.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Söndürme Cihazı Yer İşaret Levhası </h3>
-                <p>Fotolümen yangın söndürme cihazı levhası.</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/10.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
+            <div class="urun-karti gizli" data-kategori="hortum">
+                <div class="urun-gorsel-alani"><img src="images/10.png" onerror="this.style.display='none'"></div>
                 <h3>Yangın Battaniyesi</h3>
-                <p>1.50x1.80 ebatlarında yüksek sıcaklıklara dayanıklı cam elyaftan üretilmiş yangın battaniyesi.</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/9.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Hortum Lansı(Nozulu)</h3>
-                <p>Ayarlı püskürtme başlığı .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/4.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Küresel Yangın Vanası</h3>
-                <p>2'' Pirinç küresel vana(yangın tesisat uyumlu).</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/17.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Vanası </h3>
-                <p>2'' Yangın vanası.</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/19.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Hortum Rekoru </h3>
-                <p>2'' Aliminyum yangın hortum rekoru .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/18.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Hortum Rekoru </h3>
-                <p>2''İtalyan pirinç yangın hortum rekoru .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/20.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Tesisatı Düşürücü Rediksiyon(Stroz Tipi) </h3>
-                <p>2'' -1 Düşürücü rediksiyon .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/27.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Plastik Yangın Lansı </h3>
-                <p>Plastik yangın hortum lansı(nozul) .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/21.png" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Tüpü Kabini  </h3>
-                <p>Tekli yangın söndürme tüpü kabini(6 kg uyumlu) .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/28.jpeg" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Tüp Kabinli Yangın Dolabı</h3>
-                <p>70x90x21 ölçülerinde tüp kabinli yangın dolabı.</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/29.jpeg" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Dolabı </h3>
-                <p>70x65x21 ölçülerinde yangın dolabı .</p>
-            </div>
-            <div class="urun-karti">
-                <div class="urun-gorsel-alani">
-                    <img src="images/30.jpeg" alt="Kuru Kimyevi Tozlu Cihazlar" onerror="this.style.display='none'">
-                    <span class="gorsel-yertutucu"></span>
-                </div>
-                <h3>Yangın Dolabı </h3>
-                <p>Füme camlı yangın dolabı .</p>
+                <p>1.50x1.80 ebatlarında cam elyaf battaniye.</p>
             </div>
 
+            <!-- Levhalar (GİZLİ) -->
+            <div class="urun-karti gizli" data-kategori="levha">
+                <div class="urun-gorsel-alani"><img src="images/6.png" onerror="this.style.display='none'"></div>
+                <h3>Acil Çıkış Aydınlatma</h3>
+                <p>Led'li acil çıkış yönlendirme levhası ve çeşitleri.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="levha">
+                <div class="urun-gorsel-alani"><img src="images/14.png" onerror="this.style.display='none'"></div>
+                <h3>Fotolümen Çıkış Levhası</h3>
+                <p>Elektriksiz parlayan acil çıkış levhası ve çeşitleri.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="levha">
+                <div class="urun-gorsel-alani"><img src="images/11.png" onerror="this.style.display='none'"></div>
+                <h3>YSC Yer İşaret Levhası</h3>
+                <p>Fotolümen yangın söndürme cihazı levhası.</p>
+            </div>
+
+            <!-- Aparatlar (GİZLİ) -->
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/9.png" onerror="this.style.display='none'"></div>
+                <h3>Yangın Hortum Lansı</h3>
+                <p>Ayarlı püskürtme başlığı (Nozul).</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/4.png" onerror="this.style.display='none'"></div>
+                <h3>Küresel Yangın Vanası</h3>
+                <p>2'' Pirinç küresel vana.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/17.png" onerror="this.style.display='none'"></div>
+                <h3>Yangın Vanası</h3>
+                <p>2'' Yangın tesisat vanası.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/19.png" onerror="this.style.display='none'"></div>
+                <h3>Hortum Rekoru</h3>
+                <p>2'' Alüminyum yangın hortum rekoru.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/27.png" onerror="this.style.display='none'"></div>
+                <h3>Plastik Yangın Lansı</h3>
+                <p>2'' Plastik yangın lansı.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/18.png" onerror="this.style.display='none'"></div>
+                <h3>Yangın Rekoru</h3>
+                <p>2'' İtalyan yangın rekoru.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="aparat">
+                <div class="urun-gorsel-alani"><img src="images/20.png" onerror="this.style.display='none'"></div>
+                <h3>2''-1'' Düşürücü Rediksiyon</h3>
+                <p>2.40x6.88 ölçülü 2'' -1'' Düşürücü rediksiyon.</p>
+            </div>
+
+            <!-- Dolaplar (GİZLİ) -->
+            <div class="urun-karti gizli" data-kategori="dolap">
+                <div class="urun-gorsel-alani"><img src="images/28.jpeg" onerror="this.style.display='none'"></div>
+                <h3>Tüp Kabinli Yangın Dolabı</h3>
+                <p>70x90x21 ölçülerinde yangın dolap.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="dolap">
+                <div class="urun-gorsel-alani"><img src="images/29.png" onerror="this.style.display='none'"></div>
+                <h3>Yangın  Dolabı</h3>
+                <p>70x65x21 ölçülerinde yangın dolabı.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="dolap">
+                <div class="urun-gorsel-alani"><img src="images/21.png" onerror="this.style.display='none'"></div>
+                <h3>Yangın Tüpü Kabini</h3>
+                <p>Yangın dolabı.</p>
+            </div>
+            <div class="urun-karti gizli" data-kategori="dolap">
+                <div class="urun-gorsel-alani"><img src="images/30.jpeg" onerror="this.style.display='none'"></div>
+                <h3>Füme Camlı Yangın  Dolabı</h3>
+                <p>Tekli yangın söndürme tüpü kabini.</p>
+            </div>
         </div>
     </section>
 
@@ -454,25 +356,37 @@
         <div class="footer-icerik">
             <div class="footer-kolon">
                 <h3>Hakan Yangın Sistemleri</h3>
-                <p>📍 Anafartalar Mah. Şehit Teğmen Kalmaz Posta Cad. No: 19 Mermerci Han Ulus, Altındağ / Ankara</p>
-                <p>📧 <strong>yangin.market@gmail.com</strong></p>
+                <p>📍 Anafartalar Mah. Şehit Teğmen Kalmaz Posta Cad. No: 19 Mermerci Han Ulus, Ankara</p>
+                <p>📧 yangin.market@gmail.com</p>
             </div>
             <div class="footer-kolon">
                 <h3>Hızlı İletişim</h3>
                 <p>📞 0537 343 32 32</p>
                 <p>📞 0312 324 29 29</p>
-                <p>📞 0312 311 02 12</p>
-                <p>Fax: 0312 310 98 85</p>
-                <p>📸 instagram.com/yangin.market</p>
             </div>
         </div>
-        <div class="telif">
-            <p>© 2026 Hakan Yangın Sistemleri. Tüm Hakları Saklıdır.</p>
-        </div>
+        <div class="telif">© 2026 Hakan Yangın Sistemleri. Tüm Hakları Saklıdır.</div>
     </footer>
 </div>
 
 <script>
+    // Ürün Filtreleme Fonksiyonu
+    function filtrele(kategori) {
+        const urunler = document.querySelectorAll('.urun-karti');
+        const butonlar = document.querySelectorAll('.filtre-butonu');
+
+        butonlar.forEach(btn => btn.classList.remove('aktif'));
+        event.target.classList.add('aktif');
+
+        urunler.forEach(urun => {
+            if (kategori === 'hepsi' || urun.getAttribute('data-kategori') === kategori) {
+                urun.classList.remove('gizli');
+            } else {
+                urun.classList.add('gizli');
+            }
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const intro = document.getElementById('intro-overlay');
         const mainSite = document.getElementById('main-site');
@@ -489,61 +403,22 @@
         let target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         let current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        function startSpray(e) {
-            if(isIntroFinished) return;
-            isSpraying = true;
-            updateTarget(e);
-        }
-        function stopSpray() { isSpraying = false; }
-
         function updateTarget(e) {
-            if(e.touches && e.touches.length > 0) {
-                target.x = e.touches[0].clientX;
-                target.y = e.touches[0].clientY;
-            } else if (!e.touches) {
-                target.x = e.clientX;
-                target.y = e.clientY;
-            }
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            target.x = clientX; target.y = clientY;
         }
 
-        const preventScroll = (e) => {
-            if (!isIntroFinished) {
-                e.preventDefault();
-            }
-        };
-
-        intro.addEventListener('touchstart', (e) => {
-            preventScroll(e);
-            startSpray(e);
-        }, {passive: false});
-
-        intro.addEventListener('touchmove', (e) => {
-            preventScroll(e);
-            updateTarget(e);
-        }, {passive: false});
-
-        intro.addEventListener('touchend', (e) => {
-            preventScroll(e);
-            stopSpray();
-        }, {passive: false});
-
-        document.addEventListener('touchmove', (e) => {
-            if(!isIntroFinished && e.target.closest('#intro-overlay')) {
-                 e.preventDefault();
-            }
-        }, {passive: false});
-
-
-        intro.addEventListener('mousedown', startSpray);
-        window.addEventListener('mouseup', stopSpray);
+        intro.addEventListener('mousedown', (e) => { isSpraying = true; updateTarget(e); });
+        intro.addEventListener('touchstart', (e) => { e.preventDefault(); isSpraying = true; updateTarget(e); }, {passive: false});
+        window.addEventListener('mouseup', () => isSpraying = false);
+        window.addEventListener('touchend', () => isSpraying = false);
         window.addEventListener('mousemove', updateTarget);
+        window.addEventListener('touchmove', (e) => { if(!isIntroFinished) updateTarget(e); });
 
         class Particle {
             constructor(x, y) {
@@ -553,90 +428,56 @@
                 this.vx = Math.cos(angle) * speed;
                 this.vy = Math.sin(angle) * speed;
                 this.size = Math.random() * 10 + 5;
-                this.growth = Math.random() * 2 + 1;
                 this.life = 1;
             }
             update() {
                 this.x += this.vx; this.y += this.vy;
-                this.vx *= 0.88;
-                this.vy *= 0.88;
-                this.vy += 0.8;
-                this.size += this.growth;
+                this.vx *= 0.88; this.vy *= 0.88; this.vy += 0.8;
                 this.life -= 0.025;
             }
             draw() {
                 ctx.fillStyle = `rgba(240, 240, 240, ${this.life * 0.8})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
 
         function animate() {
             if (isIntroFinished) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             current.x += (target.x - current.x) * 0.15;
             current.y += (target.y - current.y) * 0.15;
-
             extinguisher.style.left = (current.x - 30) + 'px';
             extinguisher.style.top = (current.y - 10) + 'px';
 
             if (isSpraying) {
                 extinguisher.style.transform = 'rotate(-15deg)';
-                for(let i=0; i<6; i++) {
-                    particles.push(new Particle(current.x - 20, current.y + 10));
-                }
-
-                fireOpacity -= 0.02;
+                for(let i=0; i<6; i++) particles.push(new Particle(current.x - 20, current.y + 10));
+                fireOpacity -= 0.015;
                 if(fireOpacity < 0) fireOpacity = 0;
                 fire.style.opacity = fireOpacity;
-
-                let blueIntensity = 1 - fireOpacity;
-                intro.style.backgroundColor = `rgba(10, 25, 47, ${blueIntensity * 0.8})`;
-
                 introText.style.opacity = fireOpacity;
-
-            } else {
-                extinguisher.style.transform = 'rotate(0deg)';
-                intro.style.backgroundColor = 'black';
             }
 
             for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.update(); p.draw();
-                if (p.life <= 0) { particles.splice(i, 1); i--; }
+                particles[i].update(); particles[i].draw();
+                if (particles[i].life <= 0) { particles.splice(i, 1); i--; }
             }
 
             if (fireOpacity <= 0) {
-                finishIntro();
+                isIntroFinished = true;
+                document.body.classList.remove('intro-active');
+                setTimeout(() => {
+                    intro.style.opacity = '0';
+                    setTimeout(() => {
+                        intro.style.display = 'none';
+                        mainSite.style.display = 'block';
+                        setTimeout(() => mainSite.style.opacity = '1', 100);
+                    }, 1000);
+                }, 500);
             } else {
                 requestAnimationFrame(animate);
             }
         }
-
-        function finishIntro() {
-            isIntroFinished = true;
-            isSpraying = false;
-
-            extinguisher.style.opacity = '0';
-            canvas.style.opacity = '0';
-            introText.style.opacity = '0';
-
-            document.body.classList.remove('intro-active');
-
-            setTimeout(() => {
-                intro.style.opacity = '0';
-                setTimeout(() => {
-                    intro.style.display = 'none';
-                    mainSite.style.display = 'block';
-                    window.scrollTo(0, 0);
-                    document.body.style.cursor = 'auto';
-                    setTimeout(() => mainSite.style.opacity = '1', 100);
-                }, 1000);
-            }, 300);
-        }
-
         animate();
     });
 </script>
